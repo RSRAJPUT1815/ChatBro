@@ -29,7 +29,7 @@ const LeftSideBar = (props) => {
         <div className='flex flex-col gap-3 mt-5'>
           {userDummyData.map((user,index)=>{
             return (
-              <div key={index} className={`relative flex items-center gap-2 p-2 rounded cursor-pointer max-sm:text-sm hover:bg-gray-600 ` } onClick={()=>props.setSelecteduser(!props.selecteduser)}>
+              <div key={index} className={`relative flex items-center gap-2 p-2 rounded cursor-pointer max-sm:text-sm hover:bg-gray-600 ${props.selecteduser._id === user._id && ''} ` } onClick={()=>props.setSelecteduser(user)}>
                 <img src={user?.profilePic || assets.avatar_icon} alt="user-profile" className='w-10 aspect-[1,1] rounded-full ' />
                 <div className='flex flex-col gap-1 ml-2'>
                   <p className='text-white text-xs font-semibold'>{user?.fullName}</p>
