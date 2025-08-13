@@ -20,9 +20,3 @@ export const auth = async (req, res, next) => {
     }
 }
 
-//conteoller to check if the user is authenticated
-
-export const isAuth = (req ,res)=>{
-    res.json({success:true, user:req.user, message:"User is authenticated"})
-    
-} 
