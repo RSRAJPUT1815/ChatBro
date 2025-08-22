@@ -1,5 +1,5 @@
-import Message from "../models/message";
-import cloudinary from "../lib/cloudinary";
+import Message from "../models/message.js";
+import cloudinary from "../lib/cloudinary.js";
 
 
 //get all users expect the loggin user
