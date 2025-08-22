@@ -1,5 +1,7 @@
 import Message from "../models/message.js";
 import cloudinary from "../lib/cloudinary.js";
+import {io,userSocketMap} from "../server.js";
+
 
 
 //get all users expect the loggin user
@@ -83,6 +85,11 @@ export const sendMessage = async (req, res) => {
             senderId,
             receiverId
         })
+        //update last message for sender
+        const receiversocketId = userSocketMap[receiverId];
+        if(receiversocketId){
+            io.to(receiversocketId).emit('newMessage', newMessage)
+        }
         res.json({ success: true, newMessage });
     } catch (error) {
           console.log(error.message);
