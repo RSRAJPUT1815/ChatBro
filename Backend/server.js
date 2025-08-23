@@ -25,25 +25,27 @@ export const userSocketMap = {}; // userId: socketId
 
 //Socket.io connection hendler
 io.on('connection', (socket)=>{
-    const userId = socket.handshake.query.userId;
+    const userId = socket.handshake.query.userID;
     console.log("userConnected", userId);
     if (userId) {
         userSocketMap[userId] = socket.id;
     }
 
+
     //Emit all online users to connected client 
     io.emit("getOnlineUsers",Object.keys(userSocketMap));
-
+    
     socket.on('disconnect', ()=>{
         console.log('user Disconnected',userId);
         delete userSocketMap[userId];
         io.emit("getOnlineUsers",Object.keys(userSocketMap))
     })
     
+    
 })
 
 //Middleware
-app.use(express.json({ limit: "4mb" }));
+app.use(express.json({ limit: "8mb" }));
 app.use(cors());
 dotenv.config();
 

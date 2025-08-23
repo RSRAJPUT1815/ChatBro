@@ -11,7 +11,7 @@ export const singup = async (req , res)=>{
 
     try {
         if(!fullName || !email || !password || !bio){
-            return res.json({success:false, message:"Please fill all the fields"})
+            return res.json({success:false, message:"Please fill  all the fields"})
         }
         const user = await User.findOne({email});
         if(user){
@@ -52,7 +52,7 @@ export const login = async (req , res)=>{
         const token = generateToken(user._id);
         return res.json({success:true,userData , message:"Login successful", token});
     } catch (error) {
-        console.log(error.message);
+        console.log(error.message );
         return res.json({success:false , message:error.message})
     }
 }

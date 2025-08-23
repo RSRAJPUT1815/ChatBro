@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import assets from '../assets/assets'
+import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
-  const [currState, setCurrState] = useState("Sing up");
-  const [FullName, setFullName] = useState("");
+  const [currState, setCurrState] = useState("singup");
+  const [fullName, setfullName] = useState("");
   const [email, setemail] = useState("");
   const [bio, setbio] = useState("");
   const [password, setPassword] = useState("");
   const [dataSubmited, setdataSubmited] = useState(false);
+
+  const {login} = useContext(AuthContext)
+
+
   const onsubmitHandeler = (e)=>{
     e.preventDefault();
     
-    if (currState === "Sing up" && !dataSubmited) {
+    if (currState === "singup" && !dataSubmited) {
         setdataSubmited(true);
         return;
     }
+
+    login(currState == "singup" ? "singup": "login", {fullName,email,password,bio});
 
   }
 
@@ -29,8 +36,8 @@ const Login = () => {
           {currState}
           {dataSubmited && <img onClick={()=>setdataSubmited(false)} src={assets.arrow_icon} alt="Arrow" className='w-5 cursor-pointer' />}
         </h2>
-        {currState === "Sing up" && !dataSubmited && (
-          <input onChange={(e)=>setFullName(e.target.value)} value={FullName} type="text" className='p-2 border border-gray-500 rounded-md focus:outline-none' placeholder='Full Name' required />
+        {currState === "singup" && !dataSubmited && (
+          <input onChange={(e)=>setfullName(e.target.value)} value={fullName} type="text" className='p-2 border border-gray-500 rounded-md focus:outline-none' placeholder='Full Name' required />
         )}
         {
           !dataSubmited && (
@@ -41,7 +48,7 @@ const Login = () => {
           )
         }
         {
-          currState === "Sing up" && dataSubmited && (
+          currState === "singup" && dataSubmited && (
             <textarea onChange={(e)=>setbio(e.target.value)} value={bio} className='py-4 px-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500'  placeholder='Provide a short bio' required/>
           )
         }
@@ -52,7 +59,7 @@ const Login = () => {
           <p>Agree to the terms of use & privacy policy</p>
         </div>
         <div className='flex flex-col gap-2 text-center'>
-          {currState === "Sing up" ? (
+          {currState === "singup" ? (
             <p className='text-gray-600 text-sm'>Already have an account? <span onClick={()=>{setCurrState("Login") ; setdataSubmited(false)}} className='text-violet-500 font-medium cursor-pointer'>Login</span>.</p>
           ) : (
             <p className='text-gray-600 text-sm'>Create an account <span onClick={()=>{setCurrState("Sing up") }} className='text-violet-500 font-medium cursor-pointer'>Click here</span></p>
