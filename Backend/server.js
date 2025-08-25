@@ -6,7 +6,6 @@ import { connectDB } from "./lib/db.js";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoute.js";
 import { Server } from "socket.io";
-import { log } from "console";
 
 
 
@@ -26,7 +25,7 @@ export const userSocketMap = {}; // userId: socketId
 //Socket.io connection hendler
 io.on('connection', (socket)=>{
     const userId = socket.handshake.query.userID;
-    console.log("userConnected", userId);
+    console.log("userConnected");
     if (userId) {
         userSocketMap[userId] = socket.id;
     }
@@ -36,7 +35,7 @@ io.on('connection', (socket)=>{
     io.emit("getOnlineUsers",Object.keys(userSocketMap));
     
     socket.on('disconnect', ()=>{
-        console.log('user Disconnected',userId);
+        console.log('userhi Disconnected');
         delete userSocketMap[userId];
         io.emit("getOnlineUsers",Object.keys(userSocketMap))
     })
@@ -50,7 +49,7 @@ app.use(cors());
 dotenv.config();
 
 
-app.use("/api/status", (req ,res)=>res.send("Server is ON")) 
+app.use("/api/status", (req,res)=>res.send("Server is ON")) 
 //Importing routes
 app.use("/api/auth",userRouter)
 app.use("/api/messages",messageRouter)

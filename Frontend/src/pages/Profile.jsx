@@ -12,9 +12,11 @@ const Profile = () => {
   const [bio, setbio] = useState(authUser.bio)
 
   const handelsub = async (e) => {
+    console.log("hi12321");
     e.preventDefault();
     if(!selectedimg){
       await updateProfile({fullName: Name , bio});
+      
       navigate("/")
       return;
     }
@@ -31,7 +33,7 @@ const Profile = () => {
   return (
     <div className='min-h-screen flex items-center justify-center'>
       <div className=' w-5/6 max-w-2xl text-gray-800 bg-gray-300 p-6 rounded-lg shadow-lg  flex  items-center justify-between gap-4 max-sm:flex-col-reverse'>
-        <form className="flex flex-1 flex-col gap-5 p-10 " onSubmit={handelsub}>
+        <form className="flex flex-1 flex-col gap-5 p-10 " onSubmit={(e) => {handelsub(e)}}>
           <h3 className='text-lg font-semibold'>Profile Information</h3>
           <label htmlFor="avatar" className='flex items-center gap-3 cursor-pointer'>
             <input onChange={(e) => { setselectedimg(e.target.files[0]) }} type="file" id="avatar" accept='.png, .jpg, .jpeg' hidden />
