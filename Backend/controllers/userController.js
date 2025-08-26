@@ -37,22 +37,23 @@ export const singup = async (req , res)=>{
 
 export const login = async (req , res)=>{
     const{email , password}= req.body;
+    console.log(req.body);
     try {
         if(!email || !password){
             return res.json({success:false , message:"please fill all fields"
             })
         }
         const user = await User.findOne({email});
-        const passwordMatch = await bcrypt.compare(password, userData.password);
+        const passwordMatch = await bcrypt.compare(password, user.password);
 
         if(!user && !passwordMatch){
             return res.json({success:false , message:"Invalid email or password"})
         }
 
         const token = generateToken(user._id);
-        return res.json({success:true,userData , message:"Login successful", token});
+        return res.json({success:true, userData:user , message:"Login successful", token});
     } catch (error) {
-        console.log(error.message );
+        console.log(error );
         return res.json({success:false , message:error.message})
     }
 }
@@ -69,16 +70,22 @@ export const isAuth = (req ,res)=>{
 export const updateProfile = async (req ,res)=>{
     try {
         const {fullName , bio , profilePic} = req.body;
+        // console.log(req.body);
         const userid = req.user._id;
+        
         let updatedUser ;
         if(!profilePic){
+            console.log("hi");
             updatedUser = await User.findByIdAndUpdate(userid, {fullName,bio},{new:true})
         }else{
             const upload = await cloudinary.uploader.upload(profilePic)
             updatedUser = await User.findByIdAndUpdate(userid,{fullName,bio,profilePic:upload.secure_url},{new:true})
+            
+            
         }
-        
-        res.json({success:true, message:"Profile updated successfully", userData:updatedUser})
+
+
+        res.json({success:true, message:"Profile updated successfully", userData : updatedUser})
     } catch (error) {
         console.log(error.message);
         return res.json({success:false, message:error.message});

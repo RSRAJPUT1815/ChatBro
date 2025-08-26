@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (state, credentials) => {
         try {
             const { data } = await axios.post(`/api/auth/${state}`, credentials)
+            console.log(data);
             if (data.success) {
                 setAuthUser(data.userData);
                 connectSocket(data.userData);
@@ -40,10 +41,9 @@ export const AuthProvider = ({ children }) => {
                 localStorage.setItem("token", data.token);
                 toast.success(data.message);
             }
-            else {
-                toast.error(data.message);
-            }
+            
         } catch (error) {
+            console.log(error);
             toast.error(error.message);
         }
     }
@@ -64,13 +64,15 @@ export const AuthProvider = ({ children }) => {
     //update profile function to update user profile
     const updateProfile = async (body) => {
         try {
-            const { data } = await axios.put('/api/auth/updateProfile', body);
+            const { data } = await axios.put('/api/auth/updateProfile', body );
             if (data.success) {
                 setAuthUser(data.user)
+                console.log(data);
+                
                 toast.success("Profile updated successfully");
             }
         } catch (error) {
-            toast.error(error.message);
+            toast.error(error.message );
         }
     }
 

@@ -16,7 +16,6 @@ const Profile = () => {
     e.preventDefault();
     if(!selectedimg){
       await updateProfile({fullName: Name , bio});
-      
       navigate("/")
       return;
     }
@@ -24,7 +23,8 @@ const Profile = () => {
     render.readAsDataURL(selectedimg);
     render.onload = async ()=>{
       const base64Image = render.result;
-      await updateProfile({profilepic: base64Image ,fullName: Name , bio});
+      await updateProfile({profilePic: base64Image ,fullName: Name , bio});
+      console.log(updateProfile);
       navigate("/") 
     }
 
@@ -46,7 +46,7 @@ const Profile = () => {
 
 
         </form>
-        <img src={assets.logo_icon} alt="profile" className={`max-w-44 aspect-square  mx-10 max-sm:mt-10 ${selectedimg && "rounded-full"}`} />
+        <img src={authUser.profilePic || assets.logo_icon} alt="profile" className={`max-w-44 aspect-square  mx-10 max-sm:mt-10 ${authUser.profilePic && "rounded-full"}`} />
       </div>
     </div>
   )

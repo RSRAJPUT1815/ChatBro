@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import assets, { userDummyData } from '../assets/assets';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const LeftSideBar = (props) => {
-  
+  const navigate = useNavigate();
+  const {logout} = useContext(AuthContext);
+
   return (
     
       <div className={` bg-gray-700 p-4 rounded-l-lg ${props.selecteduser ? "w-1/4" : "w-1/2"}`}>
@@ -16,7 +20,7 @@ const LeftSideBar = (props) => {
               <div className='absolute right-0 top-8 z-10  bg-gray-800 text-white p-2 rounded-lg hidden group-hover:block'>
                 <Link to={"/profile"} className='text-xs cursor-pointer'>Edit Profile</Link>
                 <hr className='my-2 border-t border-gray-500 ' />
-                <p className='text-xs cursor-pointer' >Logout</p>
+                <p className='text-xs cursor-pointer' onClick={()=>{logout();}} >Logout</p>
               </div>
             </div>
           </div>
