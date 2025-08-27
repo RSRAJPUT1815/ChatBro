@@ -1,6 +1,7 @@
 import Message from "../models/message.js";
 import cloudinary from "../lib/cloudinary.js";
 import {io,userSocketMap} from "../server.js";
+import User from "../models/User.js";
 
 
 
@@ -8,6 +9,7 @@ import {io,userSocketMap} from "../server.js";
 export const getUserinSideBar = async (req, res) => {
     try {
         const userid = req.user._id;
+        
         const filterUser = await User.find({ _id: { $ne: userid } }).select('-password')
 
         //count unseen messages
@@ -21,7 +23,7 @@ export const getUserinSideBar = async (req, res) => {
 
         await Promise.all(promise)
 
-        res.status(200).json({ seccess: true, users: filterUser, unseenMessages });
+        res.status(200).json({ success: true, users: filterUser, unseenMessages });
     } catch (error) {
         console.log(error.message);
         res.json({ success: false, message: error.message })

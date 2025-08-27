@@ -1,8 +1,22 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import assets, { messagesDummyData } from '../assets/assets'
 import { msgTimeFormate } from '../lib/utils';
+import { chatContext } from '../../context/chatContext';
+import { AuthContext } from '../../context/AuthContext';
 
-const ChatContainer = (props) => {
+const ChatContainer = () => {
+
+  const {messages , selectedUser ,setSelectedUser , sendMessage , getMessages} = useContext(chatContext)
+  const {authUser, onlineUser} = useContext(AuthContext)
+ // handle send message
+  const [input , setInput] = useState("")
+  const handleSendMessages = async(e)=>{
+    e.preventDefault();
+    if(input.trim() === "")return null;
+    await sendMessage({text:input.trim()})
+    setInput("")
+  }
+
   const scrollRef = useRef(null);
   useEffect(() => {
     if (scrollRef.current) {
@@ -47,13 +61,13 @@ const ChatContainer = (props) => {
       {/* input area */}
       <div className='absolute bottom-0 left-0 right-0 bg-gray-200 p-4 flex items-center gap-3'>
         <div className='flex flex-1 items-center bg-gray-400 gap-3 px-3 rounded-full'>
-          <input type="text" placeholder="Sand a massage" id="msginput" className='flex-1 bg-gray-400 text-sm p-3 border-none rounded-lg outline-none text-black placeholder-gray-600 font-semibold' />
+          <input value={input} onChange={(e)=>{setInput(e.target.value)}} onKeyDown={(e)=>e.key === "Enter" ? handleSendMessages(e) : null} type="text" placeholder="Sand a massage" id="msginput" className='flex-1 bg-gray-400 text-sm p-3 border-none rounded-lg outline-none text-black placeholder-gray-600 font-semibold' />
           <input type="file" name="image" id="image" accept='image/png , image/jpeg' hidden />
           <label htmlFor="image">
             <img src={assets.gallery_icon} alt="galleryImage" className='w-5 mr-2 cursor-pointer' />
           </label>
         </div>
-        <img src={assets.send_button} alt="buttonImg" className='w-7 cursor-pointer' />
+        <img onClick={handleSendMessages} src={assets.send_button} alt="buttonImg" className='w-7 cursor-pointer' />
       </div>
     </div>
   ) : (
