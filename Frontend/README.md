@@ -1,12 +1,59 @@
-# React + Vite
+# ChatBro Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite powered chat application frontend.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Modern React (with hooks and context)
+- Routing with `react-router-dom`
+- Authentication flow
+- Toast notifications via `react-hot-toast`
+- Modular component structure
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+Frontend/
+├── src/
+│   ├── components/
+│   │   ├── ChatContainer.jsx
+│   │   ├── LeftSideBar.jsx
+│   │   └── RightsideBar.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   └── Profile.jsx
+│   ├── App.jsx
+│   └── ...
+├── README.md
+└── ...
+```
+
+## Getting Started
+
+1. **Install dependencies:**
+   ```
+   npm install
+   ```
+
+2. **Run the development server:**
+   ```
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```
+   npm run build
+   ```
+
+## Technologies Used
+
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [react-router-dom](https://reactrouter.com/)
+- [react-hot-toast](https://react-hot-toast.com/)
+
+## ESLint
+
+This template includes basic ESLint rules. For production, consider expanding the configuration and using TypeScript.
+
