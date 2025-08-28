@@ -10,7 +10,7 @@ const Home = () => {
       <div className='bg-white w-3/4 h-5/6 rounded-lg shadow-lg flex overflow-hidden'>
         <LeftSideBar />
         <ChatContainer />
-        <RightsideBar selecteduser={selecteduser} setSelecteduser={setSelecteduser} />
+        <RightsideBar />
       </div>
     </div>
   )

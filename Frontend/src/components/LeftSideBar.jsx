@@ -9,7 +9,7 @@ import { chatContext } from '../../context/chatContext';
 const LeftSideBar = () => {
   const navigate = useNavigate();
   const {logout , onlineUser} = useContext(AuthContext);
-  const {getUsers, users , setSelectedUser , selectedUser, unseenMassages , setUnseenMassages} = useContext(chatContext)
+  const {getUsers, users , setSelectedUser , selectedUser, unseenMessages , setUnseenMessages} = useContext(chatContext)
   const [input, setInput] = useState(false);
   const filteredUsers = input ? users.filter( (user)=>user.fullName.toLowerCase().includes(input.toLowerCase()))  :users ;
 
@@ -43,8 +43,8 @@ const LeftSideBar = () => {
           {filteredUsers.map((user,index)=>{
             return (
 
-              <div  onClick={()=>setSelectedUser(user)} key={index} className={`relative flex items-center gap-2 p-2 rounded cursor-pointer max-sm:text-sm hover:bg-gray-600  ` }>
-                
+              <div  onClick={()=>{setSelectedUser(user); setUnseenMessages((perv)=>({...perv,[user._id]:0}))}} key={index} className={`relative flex items-center gap-2 p-2 rounded cursor-pointer max-sm:text-sm hover:bg-gray-600  ` }>
+
                 <img src={user?.profilePic || assets.avatar_icon} alt="user-profile" className='w-10 aspect-[1,1] rounded-full ' />
                 <div className='flex flex-col gap-1 ml-2'>
                   <p className='text-white text-xs font-semibold'>{user?.fullName}</p>
@@ -55,8 +55,7 @@ const LeftSideBar = () => {
                   }
                 </div>
                 {
-                  
-                  (unseenMassages?.[user._id]??0) > 0 && <p className='absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500'>{unseenMassages[user._id] || 0}</p>
+                  (unseenMessages?.[user._id]) > 0 && <p className='absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500'>{unseenMessages[user._id] || 0}</p>
                 }
               </div>
             )

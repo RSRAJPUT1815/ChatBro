@@ -33,7 +33,7 @@ export const ChatProvider = ({ children }) => {
     //function to get messages for selected user
     const getMessages = async(userId)=>{
         try {
-            const {data} = await axios.get(`/api/message/${userId}`)
+            const {data} = await axios.get(`/api/messages/${userId}`)
             if(data.success){
                 setMessages(data.messages);
             }
@@ -45,7 +45,7 @@ export const ChatProvider = ({ children }) => {
     //function to send message to selected user
     const sendMessage = async(messageData)=>{
         try {
-            const {data} = await axios.post(`/api/message/send/${selecteduser._id},` , messageData)
+            const {data} = await axios.post(`/api/messages/send/${selectedUser._id}` , messageData)
             if (data.success) {
                 setMessages((prevMessage)=>[...prevMessage, data.newMessage]);
             }else{
