@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext'
 function App() {
   const { authUser } = useContext(AuthContext)
   return (
-    <div className=''>
+    <div >
       {/* Adding Routes */}
       <Toaster />
       <Routes>
