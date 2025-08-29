@@ -23,9 +23,9 @@ const LeftSideBar = () => {
       <div className={` bg-gray-700 p-4 rounded-l-lg ${selectedUser ? "w-1/4" : "w-1/2"}`}>
         <div className='pb-5'>
           <div className='flex items-center justify-between '>
-            <img src="/src/assets/logo.png" alt="logo" className='max-w-40 ' />
+            <img src={assets.logo} alt="logo" className='max-w-40 ' />
             <div className='relative py-2 group'>
-              <img src="/src/assets//menu_icon.png" alt="menu" className='max-h-5 cursor-pointer' />
+              <img src={assets.menu_icon} alt="menu" className='max-h-5 cursor-pointer' />
               <div className='absolute right-0 top-8 z-10  bg-gray-800 text-white p-2 rounded-lg hidden group-hover:block'>
                 <Link to={"/profile"} className='text-xs cursor-pointer'>Edit Profile</Link>
                 <hr className='my-2 border-t border-gray-500 ' />
@@ -34,7 +34,7 @@ const LeftSideBar = () => {
             </div>
           </div>
           <div className='bg-purple-900 flex items-center gap-2 mt-3 py-3 px-4 rounded-full'>
-            <img src="/src/assets/search_icon.png" alt="search_icon" className='w-3 ' />
+            <img src={assets.search_icon} alt="search_icon" className='w-3 ' />
             <input onChange={(e) => setInput(e.target.value)}  type="text" name="friends" id="friends" className='bg-transparent border-none outline-none text-white text-xs placeholder:text-gray-400 flex-1 ' placeholder='Search user...'/>
           </div>
         </div>
