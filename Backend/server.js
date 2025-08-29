@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoute.js";
 import { Server } from "socket.io";
 
+dotenv.config();
 
 
 //Creating express app and http server
@@ -46,7 +47,6 @@ io.on('connection', (socket)=>{
 //Middleware
 app.use(express.json({ limit: "8mb" }));
 app.use(cors());
-dotenv.config();
 
 
 app.use("/api/status", (req,res)=>res.send("Server is ON")) 
