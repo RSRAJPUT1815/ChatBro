@@ -12,7 +12,6 @@ const Profile = () => {
   const [bio, setbio] = useState(authUser.bio)
 
   const handelsub = async (e) => {
-    console.log("hi12321");
     e.preventDefault();
     if(!selectedimg){
       await updateProfile({fullName: Name , bio});
@@ -24,7 +23,6 @@ const Profile = () => {
     render.onload = async ()=>{
       const base64Image = render.result;
       await updateProfile({profilePic: base64Image ,fullName: Name , bio});
-      console.log(updateProfile);
       navigate("/") 
     }
 

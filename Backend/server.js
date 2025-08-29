@@ -7,7 +7,7 @@ import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoute.js";
 import { Server } from "socket.io";
 
-dotenv.config();
+
 
 
 //Creating express app and http server
@@ -26,7 +26,7 @@ export const userSocketMap = {}; // userId: socketId
 //Socket.io connection hendler
 io.on('connection', (socket)=>{
     const userId = socket.handshake.query.userID;
-    console.log("userConnected");
+    // console.log("userConnected");
     if (userId) {
         userSocketMap[userId] = socket.id;
     }
@@ -36,7 +36,7 @@ io.on('connection', (socket)=>{
     io.emit("getOnlineUsers",Object.keys(userSocketMap));
     
     socket.on('disconnect', ()=>{
-        console.log('userhi Disconnected');
+        // console.log('user Disconnected');
         delete userSocketMap[userId];
         io.emit("getOnlineUsers",Object.keys(userSocketMap))
     })
@@ -44,6 +44,7 @@ io.on('connection', (socket)=>{
     
 })
 
+dotenv.config();
 //Middleware
 app.use(express.json({ limit: "8mb" }));
 app.use(cors());

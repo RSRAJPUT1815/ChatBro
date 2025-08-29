@@ -70,12 +70,10 @@ export const isAuth = (req ,res)=>{
 export const updateProfile = async (req ,res)=>{
     try {
         const {fullName , bio , profilePic} = req.body;
-        // console.log(req.body);
         const userid = req.user._id;
         
         let updatedUser ;
         if(!profilePic){
-            console.log("hi");
             updatedUser = await User.findByIdAndUpdate(userid, {fullName,bio},{new:true})
         }else{
             const upload = await cloudinary.uploader.upload(profilePic)
